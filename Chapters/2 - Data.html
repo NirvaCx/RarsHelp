@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>2 - Data.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="2---convers%C3%A3o-de-imagens-para-data-e-inclus%C3%A3o-de-arquivos-de-dados"><strong>2 - Conversão de Imagens para .data e Inclusão de Arquivos de Dados</strong></h2>
+<div style="text-align: justify">
+<p><a href="../index.html">Voltar ao índice</a></p>
+<p>Para trabalharmos com imagens no nosso programa, precisamos primeiro convertê-las para um formato compreensível no nosso nível. A princípio, o programa que iremos utilizar simplesmente converte cada pixel da nossa imagem em números que representam cores correspondentes no formato de 8 bits descrito na seção anterior.</p>
+<h3 id="21---bmp2oac3"><strong>2.1 - bmp2oac3</strong></h3>
+<p>Efetivamente, esse é o programa que será utilizado para realizar a conversão. No terminal, no diretório correspondente, execute (substituindo <code>&lt;file&gt;</code> pelo nome do arquivo de imagem bitmap):</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># para linux (executavel bmp2oac3)</span>
+./bmp2oac3 &lt;file&gt;.bmp
+<span class="hljs-comment"># para windows (executavel bmp2oac3.exe)</span>
+.\bmp2oac3.exe &lt;file&gt;.bmp
+</div></code></pre>
+<p>Esse comando vai gerar, no mesmo diretório, três arquivos, dos quais o único que nos interessa no momento é o que tem o mesmo nome do arquivo original, com extensão <code>.data</code>.</p>
+<p>É importante lembrar que o executável tem que estar no mesmo diretório que o arquivo de imagem para o comando funcionar.</p>
+<p>Tomamos como exemplo a seguinte imagem <code>breakable.bmp</code> (16x16):</p>
+<center>
+<figure>
+<img src="../breakable.bmp" width="200" height="200">
+<figcaption><font size = 2 color = "gray">Breakable.bmp</font></figcaption>
+</figure>
+</center>
+<p>Após formatá-la usando bmp2oac3, teremos o seguinte arquivo de texto:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># breakable.data</span>
+breakable: 
+.word <span class="hljs-number">16</span>, <span class="hljs-number">16</span>
+.byte <span class="hljs-number">199</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">199</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">183</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">111</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">111</span>,<span class="hljs-number">183</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">103</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">103</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">30</span>,<span class="hljs-number">103</span>,<span class="hljs-number">103</span>,<span class="hljs-number">103</span>,<span class="hljs-number">22</span>,<span class="hljs-number">30</span>,<span class="hljs-number">103</span>,<span class="hljs-number">30</span>,<span class="hljs-number">103</span>,<span class="hljs-number">103</span>,<span class="hljs-number">103</span>,<span class="hljs-number">30</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">255</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">255</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">10</span>,<span class="hljs-number">13</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">13</span>,<span class="hljs-number">10</span>,
+<span class="hljs-number">1</span>,<span class="hljs-number">13</span>,<span class="hljs-number">22</span>,<span class="hljs-number">13</span>,<span class="hljs-number">22</span>,<span class="hljs-number">13</span>,<span class="hljs-number">13</span>,<span class="hljs-number">13</span>,<span class="hljs-number">22</span>,<span class="hljs-number">22</span>,<span class="hljs-number">22</span>,<span class="hljs-number">22</span>,<span class="hljs-number">13</span>,<span class="hljs-number">13</span>,<span class="hljs-number">13</span>,<span class="hljs-number">1</span>,
+<span class="hljs-number">199</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">199</span>,
+</div></code></pre>
+<p>Apesar de parecer desorganizado, sua estrutura é bem simples: duas <code>words</code> codificam a largura e a altura da imagem, respectivamente. Depois disso, <code>largura * altura</code> bytes codificam as cores de cada pixel na imagem. Com apenas essas informações, é possível renderizar a imagem no Bitmap Display</p>
+<p>O início do arquivo tem uma label de conveniência com o mesmo nome do arquivo, sem a extensão. Assim, quando incluirmos o arquivo na seção <code>.data</code> do nosso código, poderemos acessar essas informações a partir da label correspondente. Falaremos sobre inclusão de arquivos adiante.</p>
+<h3 id="22---incluindo-arquivos-de-dados-no-c%C3%B3digo-principal"><strong>2.2 - Incluindo Arquivos de Dados no Código Principal</strong></h3>
+<p>A inclusão de um arquivo basicamente &quot;insere&quot; os conteúdos do arquivo no texto do seu código implicitamente. Ela é feita utilizando a diretiva <code>.include</code> seguida de uma string delimitada por aspas duplas descrevendo o diretório do arquivo relativo ao código fonte. Por exemplo, no código abaixo, queremos incluir <code>foo.data</code>, que se encontra no mesmo diretório que nosso código fonte, e <code>bar.data</code> que se encontra na pasta <code>newdir</code> nesse mesmo diretório.</p>
+<pre class="hljs"><code><div>.data
+
+<span class="hljs-comment"># external data</span>
+
+.include <span class="hljs-string">"foo.data"</span>
+.include <span class="hljs-string">"newdir/bar.data"</span>
+
+.text
+<span class="hljs-comment"># [...]</span>
+
+</div></code></pre>
+<p>É boa prática criar labels dentro de arquivos de dados para que tenhamos uma forma geral de acessar um dado externo. Nos nossos arquivos de imagem, teremos as labels criadas para nós, mas é conveniente criar nossos próprios arquivos de dados. Por exemplo, o arquivo a seguir, descrevendo informações de uma fase em um jogo:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># level2_info.data</span>
+level2_info:
+<span class="hljs-comment"># enemy amount</span>
+.word	<span class="hljs-number">2</span>
+<span class="hljs-comment"># enemy positions</span>
+<span class="hljs-comment"># x, y, ID</span>
+.byte	
+	<span class="hljs-number">7</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>,
+	<span class="hljs-number">16</span>, <span class="hljs-number">11</span>, <span class="hljs-number">1</span>,
+	<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>,
+	<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">3</span>,
+	<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>,
+	<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>,
+	<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">6</span>,
+	<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">7</span>
+<span class="hljs-comment"># [...]</span>
+</div></code></pre>
+<p>Apesar da falta de contexto, sabemos que quando quisermos acessar algum desses dados na execução do código, podemos carregar o endereço de <code>level2_info</code> e indexá-lo apropriadamente.</p>
+<p>Interessantemente, é possível incluir arquivos de <em>código</em> utilizando a <code>.include</code>. Isso é útil para organizar seu código, mas tenha cautela ao utilizar esse tipo de técnica.</p>
+<p><a href="../index.html">Voltar ao índice</a></p>
+</div>
+</body>
+</html>
