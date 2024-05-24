@@ -403,17 +403,18 @@ BIN	0000 0000 0000 0000 1000 0000 1111 1111
 <p>Vamos observar o comportamento das diferentes instruções de carregamento para esse número. <strong>Importante: lembre-se que o código a ser executado tem que ser escrito na seção</strong> <code>.text</code> <strong>!</strong></p>
 <pre class="hljs"><code><div><span class="hljs-comment"># word value1 = 0xff0080ff</span>
 
-lb		t0, value1 <span class="hljs-comment"># Nesse caso, t0 vai carregar 0xffffffff - apenas os 8 bits menos significativos foram carregados.</span>
+lbu		t0, value1 <span class="hljs-comment"># Nesse caso, a extensao de sinal nao ocorre, e t0 carrega 0x000000ff - </span>
+				   <span class="hljs-comment"># note que apenas os 8 bits menos significativos (0xff) foram carregados.</span>
+
+lb		t0, value1 <span class="hljs-comment"># Nesse caso, t0 vai carregar 0xffffffff.</span>
 				   <span class="hljs-comment"># o ultimo bit do numero 0xff eh 1, portanto houve extensao de sinal.</span>
-				   
-lbu		t0, value1 <span class="hljs-comment"># Nesse caso, a extensao de sinal nao ocorre, e t0 carrega 0x000000ff</span>
 
-lh		t0, value1 <span class="hljs-comment"># Aqui, t0 carrega 0xffff80ff. Perceba que apenas a porcao 80ff do numero foi considerada - metade da word.</span>
-				   <span class="hljs-comment"># houve extensao de sinal nesse</span>
+lhu		t0, value1 <span class="hljs-comment"># t0 carrega 0x000080ff. Perceba que apenas a parte 0x80ff (16 bits) do numero foi considerada - metade da word.</span>
 
-lhu		t0, value1 <span class="hljs-comment"># t0 carrega 0x000080ff. Similar ao caso acima, porem sem a extensao de sinal</span>
+lh		t0, value1 <span class="hljs-comment"># Aqui, t0 carrega 0xffff80ff. </span>
+				   <span class="hljs-comment"># houve extensao de sinal nesse caso.</span>
 
-lw		t0, value1 <span class="hljs-comment"># t0 aqui carrega 0xff0000ff - que seria o dado completo.</span>
+lw		t0, value1 <span class="hljs-comment"># t0 aqui carrega 0xff0080ff - que seria o dado completo.</span>
 </div></code></pre>
 <p>Isso conclui as instruções de carregamento. Lembre que também podemos copiar dados de um registrador para outro utilizando a instrução <code>mv &lt;alvo&gt;, &lt;origem&gt;</code></p>
 <p><em>Observação:</em> o estilo de instrução aprensentado acima na verdade é uma pseudoinstrução. Labels não são acessadas diretamente. O montador do nosso código vai traduzir a instrução <code>lw t0, value1</code>, por exemplo, para:</p>

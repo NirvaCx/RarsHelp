@@ -50,17 +50,18 @@ Vamos observar o comportamento das diferentes instruções de carregamento para 
 ```r
 # word value1 = 0xff0080ff
 
-lb		t0, value1 # Nesse caso, t0 vai carregar 0xffffffff - apenas os 8 bits menos significativos foram carregados.
+lbu		t0, value1 # Nesse caso, a extensao de sinal nao ocorre, e t0 carrega 0x000000ff - 
+				   # note que apenas os 8 bits menos significativos (0xff) foram carregados.
+
+lb		t0, value1 # Nesse caso, t0 vai carregar 0xffffffff.
 				   # o ultimo bit do numero 0xff eh 1, portanto houve extensao de sinal.
-				   
-lbu		t0, value1 # Nesse caso, a extensao de sinal nao ocorre, e t0 carrega 0x000000ff
 
-lh		t0, value1 # Aqui, t0 carrega 0xffff80ff. Perceba que apenas a porcao 80ff do numero foi considerada - metade da word.
-				   # houve extensao de sinal nesse
+lhu		t0, value1 # t0 carrega 0x000080ff. Perceba que apenas a parte 0x80ff (16 bits) do numero foi considerada - metade da word.
 
-lhu		t0, value1 # t0 carrega 0x000080ff. Similar ao caso acima, porem sem a extensao de sinal
+lh		t0, value1 # Aqui, t0 carrega 0xffff80ff. 
+				   # houve extensao de sinal nesse caso.
 
-lw		t0, value1 # t0 aqui carrega 0xff0000ff - que seria o dado completo.
+lw		t0, value1 # t0 aqui carrega 0xff0080ff - que seria o dado completo.
 ```
 Isso conclui as instruções de carregamento. Lembre que também podemos copiar dados de um registrador para outro utilizando a instrução `mv <alvo>, <origem>`
 
