@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>1 - Memory.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="1---utilizando-a-mem%C3%B3ria"><strong>1 - Utilizando a Memória</strong></h2>
+<div style="text-align: justify">
+<p><a href="../index.html">Voltar ao índice</a></p>
+<p>Os registradores, apesar de rápidos, são de número limitado, e fácilmente estaremos trabalhando com mais dados do que conseguimos lidar utilizando apenas registradores. A memória, nesse caso, pode ser utilizada como uma &quot;Reserva&quot; para dados que não estamos utilizando no momento, mas que precisamos acessar depois. Essa primeira seção é um pouco cansativa, mas entender os conceitos apresentados aqui é o primeiro, e talvez mais importante passo para conseguir realizar o projeto da disciplina.</p>
+<h3 id="11---word-half-word-e-byte"><strong>1.1 - Word, Half Word e Byte</strong></h3>
+<p>Na seção <code>.data</code> do nosso código fonte, podemos reservar e inicializar espaço utilizando as diretivas <code>.word</code>, <code>.half</code> e <code>.byte</code> - correspondentes a 32, 16 e 8 bits de memória respectivamente. Por exemplo:</p>
+<pre class="hljs"><code><div>.data
+
+.word <span class="hljs-number">0xf7892abe</span>
+.half <span class="hljs-number">0xe77c</span>
+.byte <span class="hljs-number">0xff</span>
+</div></code></pre>
+<p>Também é possível atribuir labels a cada um desses espaços, permitindo-nos modificar esses valores facilmente:</p>
+<pre class="hljs"><code><div>.data
+
+values:
+
+	value1:
+	.word <span class="hljs-number">0x000080ff</span>
+	
+	value2:
+	.word <span class="hljs-number">2</span>
+	
+	value3:
+	.word <span class="hljs-number">1</span>
+</div></code></pre>
+<p><strong>Leitura de valores na memória</strong></p>
+<p>Podemos ler valores da memória e carregá-los em registradores utilizando as instruções <code>lb</code>, <code>lh</code> e <code>lw</code>, que carregam um byte, uma half-word e uma word respectivamente. Note que todos os registradores têm tamanho de uma word, portanto carregar uma half-word ou um byte irá preencher apenas uma parte dos bits do registrador. Isso causa uma ambiguidade quando estamos trabalhando com números que tenham sinal - se carregamos um byte negativo (ou seja, seu bit mais significativo é 1), queremos que, ao carregar ele em um registrador, ele continue sendo negativo. O nome disso é extensão de sinal, e basicamente significa preencher os bits à esquerda do byte no registrador de acordo com o bit de sinal do nosso número. As instruções <code>lb</code>, <code>lh</code> fazem isso automaticamente. Caso não queiramos extensão de sinal, devemos usar <code>lbu</code> e <code>lhu</code> (Do inglês &quot;load byte unsigned&quot; e &quot;load half word unsigned&quot; - ou seja, sem sinal).</p>
+<p>Veja no código acima a word <code>value1</code>. Convertendo pra binário, verificaríamos que esse número é:</p>
+<pre class="hljs"><code><div>HEX	   0    0    0    0    8    0    F    F
+BIN	0000 0000 0000 0000 1000 0000 1111 1111
+	|-------------------:---------:-------| word (32 bits)
+						|---------:-------| half-word (16 bits)
+								  |-------| byte (8 bits)
+</div></code></pre>
+<p>Vamos observar o comportamento das diferentes instruções de carregamento para esse número. <strong>Importante: lembre-se que o código a ser executado tem que ser escrito na seção</strong> <code>.text</code> <strong>!</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># word value1 = 0xff0080ff</span>
+
+lb		t0, value1 <span class="hljs-comment"># Nesse caso, t0 vai carregar 0xffffffff - apenas os 8 bits menos significativos foram carregados.</span>
+				   <span class="hljs-comment"># o ultimo bit do numero 0xff eh 1, portanto houve extensao de sinal.</span>
+				   
+lbu		t0, value1 <span class="hljs-comment"># Nesse caso, a extensao de sinal nao ocorre, e t0 carrega 0x000000ff</span>
+
+lh		t0, value1 <span class="hljs-comment"># Aqui, t0 carrega 0xffff80ff. Perceba que apenas a porcao 80ff do numero foi considerada - metade da word.</span>
+				   <span class="hljs-comment"># houve extensao de sinal nesse</span>
+
+lhu		t0, value1 <span class="hljs-comment"># t0 carrega 0x000080ff. Similar ao caso acima, porem sem a extensao de sinal</span>
+
+lw		t0, value1 <span class="hljs-comment"># t0 aqui carrega 0xff0000ff - que seria o dado completo.</span>
+</div></code></pre>
+<p>Isso conclui as instruções de carregamento. Lembre que também podemos copiar dados de um registrador para outro utilizando a instrução <code>mv &lt;alvo&gt;, &lt;origem&gt;</code></p>
+<p><em>Observação:</em> o estilo de instrução aprensentado acima na verdade é uma pseudoinstrução. Labels não são acessadas diretamente. O montador do nosso código vai traduzir a instrução <code>lw t0, value1</code>, por exemplo, para:</p>
+<pre class="hljs"><code><div>la	t0, value1 <span class="hljs-comment"># salva o endereco de value1 em t0</span>
+lw	t0, <span class="hljs-number">0</span>(t0) <span class="hljs-comment"># carrega o valor no endereco apontado por t0, no proprio t0</span>
+</div></code></pre>
+<p>Entenderemos a instrução <code>la</code> (load address) a seguir.</p>
+<p><strong>Escrita de valores na memória</strong></p>
+<p>A escrita de valores na memória é feita utilizando as instruções <code>sb</code>, <code>sh</code> e <code>sw</code> para salvar bytes, half-words e words respectivamente (o &quot;s&quot; nessas instruções vem do inglês &quot;store&quot;). Não existem instruções sem sinal nesse caso - é esperado que saibamos o tipo de dado que estamos salvando. Para salvarmos, precisamos de <em>dois</em> registradores - um que vai conter o dado a ser salvo e outro que vai conter o endereço da memória onde vamos salvar. Para por um endereço da memória em um registrador, utilizamos a instrução <code>la &lt;registrador&gt;, &lt;label&gt;</code>. Veja um exemplo desse processo, salvando um byte de valor <code>69</code> no endereço de <code>value3</code> (veja a nossa seção <code>.data</code> um pouco acima).</p>
+<pre class="hljs"><code><div>la		t0, value3 <span class="hljs-comment"># carregamos o endereco alvo</span>
+li		t1, <span class="hljs-number">69</span> <span class="hljs-comment"># o valor que iremos salvar</span>
+sb		t1, <span class="hljs-number">0</span>(t0) <span class="hljs-comment"># salva o byte de valor 69 no endereco dado por t0 (value3)</span>
+</div></code></pre>
+<p>Existe uma pseudoinstrução disponível por conveniência das instruções de escrita que diminuem o tamanho do código acima, tornando-o mais legível (similar ao que acontece com as instruções de carregamento):</p>
+<pre class="hljs"><code><div>li		t1, <span class="hljs-number">69</span>
+sb		t1, value3, t0 <span class="hljs-comment"># "salvar o byte de t1 em value3 utilizando t0 como temporario"</span>
+</div></code></pre>
+<p>Os dois codigos acima fazem literalmente a mesma coisa. O código abaixo zera as words dadas pelas labels na memória:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># salva o valor do registrador especial "zero" (lembrando que o valor nesse registrador eh sempre zero)</span>
+<span class="hljs-comment"># no enderecos dados pelas respectivas labels utilizando t0 </span>
+sw		zero, value1, t0
+sw		zero, value2, t0
+sw		zero, value3, t0
+</div></code></pre>
+<p>Quando temos um endereço guardado em um registrador, podemos acessar endereços adjacentes adicionando um índice na instrução de escrita:</p>
+<pre class="hljs"><code><div>la		t0, values
+sw		zero, <span class="hljs-number">0</span>(t0) <span class="hljs-comment"># o proprio endereco de t0</span>
+sw		zero, <span class="hljs-number">4</span>(t0) <span class="hljs-comment"># o endereco 4 bytes a frente de t0</span>
+sw		zero, <span class="hljs-number">8</span>(t0) <span class="hljs-comment"># o endereco 8 bytes a frente de t0</span>
+</div></code></pre>
+<p>Como cada word tem 4 bytes, devemos somar 4 ao índice para acessar a word seguinte (Observação: podemos usar índices negativos para acessar endereços <code>x</code> bytes <em>antes</em> do endereço guardado). Vamos ver mais um exemplo do mesmo código, dessa vez alterando o valor de t0 ao invés de indexá-lo estaticamente para acessar as words seguintes.</p>
+<pre class="hljs"><code><div>.text
+
+la		t0, values
+sw		zero, <span class="hljs-number">0</span>(t0)
+addi	t0, t0, <span class="hljs-number">4</span>
+sw		zero, <span class="hljs-number">0</span>(t0)
+addi	t0, t0, <span class="hljs-number">4</span>
+sw		zero, <span class="hljs-number">0</span>(t0)
+</div></code></pre>
+<h3 id="12---%22space%22-e-c%C3%B3pia-de-dados"><strong>1.2 - &quot;Space&quot;  e  Cópia de Dados</strong></h3>
+<p>Também podemos reservar uma quantidade arbitrária de bytes em um local na memória de nossa escolha utilizando a diretiva <code>.space</code>. Nós não especificamos os dados que serão guardados nesse espaço e, sim, o tamanho desse espaço. Isso é útil, por exemplo, se quisermos criar uma cópia de algum dado na memória para efetuar operações utilizando esses dados, sem perder as informações originais. No exemplo abaixo, os espaço é reservado para conter uma cópia temporária de alguns dados da fase de um jogo.</p>
+<pre class="hljs"><code><div>.data
+
+<span class="hljs-comment"># [...]</span>
+
+level_1_data: <span class="hljs-comment"># 5 words</span>
+.word <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">16</span>, -<span class="hljs-number">7</span>, <span class="hljs-number">0</span>
+
+level_2_data: <span class="hljs-comment"># 5 words</span>
+.word <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">0</span>
+
+level_3_data: <span class="hljs-comment"># 5 words</span>
+.word <span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">16</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>
+
+<span class="hljs-comment"># [...]</span>
+
+levelData:
+.space	<span class="hljs-number">20</span>	<span class="hljs-comment"># 5 words = 5 * 4 bytes = 20 bytes</span>
+
+<span class="hljs-comment"># [...]</span>
+</div></code></pre>
+<p>A questão agora é como utilizar esse espaço. O código abaixo demonstra como fazer isso, copiando dados da segunda fase para o espaço temporário:</p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment"># [...]</span>
+
+loadLevel:
+	la		s0, level_2_data <span class="hljs-comment"># endereco dos dados da fase que vamos carregar</span>
+	la		s1, levelData <span class="hljs-comment"># endereco do espaco onde vamos criar a copia desses dados</span>
+	
+	li		t0, <span class="hljs-number">5</span> <span class="hljs-comment"># tamanho do nosso espaco, em words (20 bytes!)</span>
+	li		t1, <span class="hljs-number">0</span> <span class="hljs-comment"># contador</span>
+	
+	loadLevelLoop:
+	bge		t1, t0, loadLevelEnd <span class="hljs-comment"># se o contador for igual a 5, significa que copiamos 5 words,</span>
+									  <span class="hljs-comment"># que era nosso objetivo e podemos sair do loop de carregamento.</span>
+	
+		lw		t3, <span class="hljs-number">0</span>(s0) <span class="hljs-comment"># t3 vai ser usado para copiar a informacao. Como os dados sao compostos apenas por words,</span>
+						  <span class="hljs-comment"># podemos copiar word por word</span>
+		sw		t3, <span class="hljs-number">0</span>(s1) <span class="hljs-comment"># so -&gt; t3; t3 -&gt; s1</span>
+		
+		addi 	s0, s0, <span class="hljs-number">4</span> <span class="hljs-comment"># proxima word da origem</span>
+		addi 	s1, s1, <span class="hljs-number">4</span> <span class="hljs-comment"># os enderecos de s0 e s1 tem que "caminhar juntos" para garantir</span>
+						  <span class="hljs-comment"># que estamos copiando os dados nos lugares correspondentes.</span>
+		
+		addi 	t1, t1, <span class="hljs-number">1</span> <span class="hljs-comment"># incrementa o contador</span>
+		
+		j		loadLevelLoop <span class="hljs-comment"># continuar o loop</span>
+	
+loadLevelEnd:
+
+<span class="hljs-comment"># [...]</span>
+	
+</div></code></pre>
+<p>Perceba que nós fizemos a cópia <em>word por word</em> utilizando <code>lw</code> e <code>sw</code> nesse exemplo porque sabíamos que o tamanho do nosso dado era 5 words exatamente, mas você deve ficar atento ao tamanho do espaço de memória com o qual você está trabalhando. A forma mais segura de copiar dados é byte por byte, incrementando os endereços por 1 a cada cópia feita. Isso previne, por exemplo, carregamentos falhos em casos em que o tamanho do dado em bytes não é um múltiplo de 4, e, portanto, perigoso pra ser acessado com words. Reforça-se que é trabalho do programador saber a natureza dos dados na memória. Note também que, para carregar um dado corretamente, o espaço reservado para ele sempre tem que ter exatamente o seu tamanho ou ser maior, caso o contrário iremos acabar acessando pedaços da memória que podem estar sendo usados para outras coisas - não há indicação concreta na memória sobre onde algo termina e outra coisa começa - essas indicações são deliberadas pelo programador quando se programa em assembly.</p>
+<p><a href="../index.html">Voltar ao índice</a></br>
+<a href="./2 - Data.html">2 - Arquivos de Dados e Imagens</a></p>
+</div>
+</body>
+</html>
