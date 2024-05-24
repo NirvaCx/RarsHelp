@@ -91,6 +91,62 @@ main:
 	ecall
 ```
 
-<a href="../index.html">Voltar ao índice</a>
+Também podemos reservar uma quantidade arbitrária de bytes em um local na memória de nossa escolha utilizando a diretiva `.space`. Nós não especificamos os dados que serão guardados nesse espaço e, sim, o tamanho desse espaço. Isso é útil, por exemplo, se quisermos criar uma cópia de algum dado na memória para efetuar operações e modificá-lo, sem perder as informações originais. No exemplo abaixo, os espaço é reservado para conter uma cópia temporária de alguma das imagens fornecidas.
+```r
+.data
+
+.include "background_image_1.data" # 320*240
+.include "background_image_2.data" # 320*240
+.include "background_image_3.data" # 320*240
+
+# [...]
+
+levelBackground:
+.space	76808	# 320 * 240 bytes (quantidade de pixels na imagem) + 2 words (informação de largura e altura)
+
+# [...]
+```
+
+A questão agora é como utilizar esse espaço; o código abaixo demonstra como fazer isso, copiando a segunda imagem para o espaço temporário:
+
+```r
+
+# [...]
+
+loadBackground:
+	la	s0, background_image_2 # endereco da imagem que vamos carregar
+	la	s1, levelBackground # endereco do espaco onde vamos guardar a imagem.
+	
+	# Note que, para carregar um dado corretamente, o espaco reservado para ele tem que
+	# ter exatamente o seu tamanho ou ser maior. Sempre temos que saber o tamanho dos
+	# dados com os quais estamos trabalhando em assembly, pois nao ha indicacao concreta
+	# na memoria sobre onde algo comeca e outra coisa termina - essas indicacoes sao
+	# deliberadas pelo programador.
+	
+	li	t0, 76808 # tamanho do nosso espaco
+	li	t1, 0 # contador
+	
+	loadBackgroundLoop:
+	# enquanto o contador for menor que o espaco disponivel
+	bge	t1, t0, loadBackgroundEnd
+	
+		lb	t3, 0(s0) #t3 vai ser usado para copiar a informacao
+		sb	t3, 0(s1) # copia de s0 -> s1
+		
+		addi s0, s0, 1 # proximo byte de dado
+		addi s1, s1, 1
+		
+		addi t1, t1, 1 # t1++
+		
+		j	loadBackgroundLoop # continuar o loop
+	
+loadBackgroundEnd:
+
+# [...]
+	
+```
+
+<a href="../index.html">Voltar ao índice</a></br>
+<a href="./4 - Render.html">4 - Renderização de Imagens</a>
 
 </div>
