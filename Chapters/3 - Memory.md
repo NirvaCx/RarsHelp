@@ -2,13 +2,14 @@
 
 <div style="text-align: justify">
 
+<a href="./2 - Data.html">2 - Arquivos de Dados e Imagens</a><br>
 <a href="../index.html">Voltar ao índice</a>
 
 Os registradores, apesar de rápidos, são de número limitado, e fácilmente estaremos trabalhando com mais dados do que conseguimos lidar utilizando apenas registradores. A memória, nesse caso, pode ser utilizada como uma "Reserva" para dados que não estamos utilizando no momento, mas que precisamos acessar depois.
 
 ### **3.1 - Word, Half Word e Byte**
 
-Na seção `.data`, podemos reservar espaço utilizando as diretivas `.word`, `.half` e `.byte` - correspondentes a 32, 16 e 8 bits de memória respectivamente. Por exemplo:
+Na seção `.data`, podemos reservar e inicializar espaço utilizando as diretivas `.word`, `.half` e `.byte` - correspondentes a 32, 16 e 8 bits de memória respectivamente. Por exemplo:
 
 ```r
 .data

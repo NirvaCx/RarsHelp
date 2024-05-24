@@ -367,10 +367,11 @@ code {
   </script>
 <h2 id="3---utilizando-a-mem%C3%B3ria"><strong>3 - Utilizando a Memória</strong></h2>
 <div style="text-align: justify">
-<p><a href="../index.html">Voltar ao índice</a></p>
+<p><a href="./2 - Data.html">2 - Arquivos de Dados e Imagens</a><br>
+<a href="../index.html">Voltar ao índice</a></p>
 <p>Os registradores, apesar de rápidos, são de número limitado, e fácilmente estaremos trabalhando com mais dados do que conseguimos lidar utilizando apenas registradores. A memória, nesse caso, pode ser utilizada como uma &quot;Reserva&quot; para dados que não estamos utilizando no momento, mas que precisamos acessar depois.</p>
 <h3 id="31---word-half-word-e-byte"><strong>3.1 - Word, Half Word e Byte</strong></h3>
-<p>Na seção <code>.data</code>, podemos reservar espaço utilizando as diretivas <code>.word</code>, <code>.half</code> e <code>.byte</code> - correspondentes a 32, 16 e 8 bits de memória respectivamente. Por exemplo:</p>
+<p>Na seção <code>.data</code>, podemos reservar e inicializar espaço utilizando as diretivas <code>.word</code>, <code>.half</code> e <code>.byte</code> - correspondentes a 32, 16 e 8 bits de memória respectivamente. Por exemplo:</p>
 <pre class="hljs"><code><div>.data
 
 .word <span class="hljs-number">0xf7892abe</span>
