@@ -16,9 +16,9 @@ Os materiais e arquivos utilizados neste texto estão disponíveis no repositór
 
 ### **0.2 - Índice**
 
-<a href="./Chapters/1 - MMIO.html">1 - Entrada e Saída Mapeada Em Memória</a><br>
+<a href="./Chapters/1 - Memory.html">1 - Utilizando a Memória</a><br>
 <a href="./Chapters/2 - Data.html">2 - Arquivos de Dados e Imagens</a><br>
-<a href="./Chapters/3 - Memory.html">3 - Utilizando a Memória</a><br>
+<a href="./Chapters/3 - MMIO.html">3 - Entrada e Saída Mapeada Em Memória</a><br>
 <a href="./Chapters/4 - Render.html">4 - Renderização de Imagens</a><br>
 
 </div>

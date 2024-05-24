@@ -1,8 +1,8 @@
-## **2 - Conversão de Imagens para .data e Inclusão de Arquivos de Dados**
+## **2 - Inclusão de Arquivos de Dados e Conversão de Imagens para .data**
 
 <div style="text-align: justify">
 
-<a href="./1 - MMIO.html">1 - Entrada e Saída Mapeada em Memória</a><br>
+<a href="./1 - Memory.html">1 - Utilizando a Memória</a><br>
 <a href="../index.html">Voltar ao índice</a>
 
 Para trabalharmos com imagens no nosso programa, precisamos primeiro convertê-las para um formato compreensível no nosso nível. A princípio, o programa que iremos utilizar simplesmente converte cada pixel da nossa imagem em números que representam cores correspondentes no formato de 8 bits descrito na seção anterior.
@@ -95,6 +95,6 @@ Apesar da falta de contexto, sabemos que quando quisermos acessar algum desses d
 Interessantemente, é possível incluir arquivos de *código* utilizando a `.include`. Isso é útil para organizar seu código, mas tenha cautela ao utilizar esse tipo de técnica.
 
 <a href="../index.html">Voltar ao índice</a><br>
-<a href="./3 - Memory.html">3 - Utilizando a Memória</a>
+<a href="./3 - MMIO.html">3 - Utilizando a Memória</a>
 
 </div>
