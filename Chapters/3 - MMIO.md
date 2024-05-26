@@ -8,9 +8,7 @@
 
 ### **3.1 Bitmap Display**
 
-**Importante: a notação "0x" antes de números significa que estamos representando-os na base hexadecimal (base 16)**
-
-O bitmap display é uma ferramenta que possibilita a visualização e geração de imagens, modificando píxeis mapeados na memória. Seus endereços são:
+O bitmap display é uma ferramenta que possibilita a visualização e geração de imagens, modificando píxeis mapeados na memória. O BMD possui um espaço especial na memória, que iremos acessar normalmente com as instruções de escrita. Especificamente, são dois espaços, cada um tendo início em:
 
 Bitmap Display (Frame 1): `0xff000000`<br>
 Bitmap Display (Frame 2): `0xff100000`
@@ -30,18 +28,18 @@ xori t1, t1, 1
 ```
 Isso é particularmente útil quando queremos mostrar um frame enquanto o próximo ainda está sendo renderizado.
 
-Os pixels em cada frame do BMD são codificados utilizando 8 bits (ou 1 byte) de memória (Diferentemente dos usuais 24 bits - 1 byte representando a intensidade de cada cor), 
-
-Eles possuem o seguinte formato:<br>
-`0bBBGGGRRR`<br>
+Os pixels em cada frame do BMD são codificados utilizando 8 bits (ou 1 byte) de memória. Eles possuem o seguinte formato:<br>
+`0bBBGGGRRR` (A notação `0b` indica que estamos trabalhando com valores na base 2)<br>
 Ou seja, os dois bits mais significativos codificam a cor azul, os três dispostos no meio codificam a cor verde e os três menos significativos representam o vermelho.
 
 A cor branca, por exemplo, é representada na memória como `0xff`
 
-Note que o endereçamento no RARS é de 8 em 8 bits, então podemos usar `sb` para carregar pixels no display:
+Lembre que o endereçamento no RARS é de 8 em 8 bits, então podemos usar `sb` para carregar pixels individualmente no display:
 
 ```r
 li	t0, 0xff000000 # carrega em t0 o endereco do frame 0
+				   # note que quando queremos carregar um endereco
+				   # sem utilizar uma label, basta usar a instrucao "load immediate"
 li	t1, 0xff # carrega o numero que representa a cor branca
 			 # em t1
 sb	t1, 0(t0) # poe a cor branca no primeiro pixel
@@ -51,7 +49,7 @@ sb	t1, 0(t0) # poe a cor branca no primeiro pixel
 sb	t1, 2(t0) # faz o mesmo no terceiro pixel
 ```
 
-Note que, com o comando `sw`, podemos salvar quatro píxeis de uma vez. Isso é útil para a renderização de imagens, especialmente imagens cujos tamanhos em largura sejam múltiplos de quatro. Ainda é possível utilizar esse método para a renderização de imagens de outros tamanhos, mas é necessário tomar bastante cuidado para evitar bugs e overflows.
+Note que, com o comando `sw`, podemos salvar quatro píxeis de uma vez. Isso é útil para a renderização de imagens, especialmente imagens cujos tamanhos em largura sejam múltiplos de 4. Ainda é possível utilizar esse método para a renderização de imagens de outros tamanhos, mas é necessário tomar bastante cuidado para evitar overflows.
 
 Botando em prática:
 
@@ -117,9 +115,9 @@ ecall
 
 ### **3.2 - Acessando o Teclado**
 
-
+O acesso ao teclado, apesar de parecer mais fácil, é talvez mais complicado do que acessar o bitmap display. Para acessar o teclado, precisamos saber se alguma tecla está sendo pressionada, e qual delas está sendo pressionada. Precisamos também definir se queremos receber input por interrupção (não recomendado para um jogo) ou se queremos fazer "polling" (essencialmente "perguntar" pro teclado se ele tem input pra dar de vez em quando). O polling é útil para inputs contínuos. Infelizmente, o RARS tem uma taxa de polling (LENTA! Por volta de 5hz ou até menos) dependente no sistema operacional, mas ainda é melhor que nada.
 
 <a href="../index.html">Voltar ao índice</a><br>
-<a href="./4 - Render.html">2 - Renderização de Imagens</a>
+<a href="./4 - Render.html">4 - Renderização de Imagens</a>
 
 </div>

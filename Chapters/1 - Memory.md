@@ -4,7 +4,7 @@
 
 <a href="../index.html">Voltar ao índice</a>
 
-Os registradores, apesar de rápidos, são de número limitado, e fácilmente estaremos trabalhando com mais dados do que conseguimos lidar utilizando apenas registradores. A memória, nesse caso, pode ser utilizada como uma "Reserva" para dados que não estamos utilizando no momento, mas que precisamos acessar depois. Essa primeira seção é um pouco cansativa, mas entender os conceitos apresentados aqui é o primeiro, e talvez mais importante passo para conseguir realizar o projeto da disciplina.
+Os registradores, apesar de rápidos, são de número limitado, e facilmente estaremos trabalhando com mais dados do que conseguimos lidar utilizando apenas registradores. A memória, nesse caso, pode ser utilizada como uma "Reserva" para dados que não estamos utilizando no momento, mas que precisamos acessar depois. Essa primeira seção é um pouco cansativa, mas entender os conceitos apresentados aqui é o primeiro, e talvez mais importante passo para conseguir realizar o projeto da disciplina.
 
 ### **1.1 - Word, Half Word e Byte**
 

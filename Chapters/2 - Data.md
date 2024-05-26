@@ -94,7 +94,9 @@ Apesar da falta de contexto, sabemos que quando quisermos acessar algum desses d
 
 Interessantemente, é possível incluir arquivos de *código* utilizando a `.include`. Isso é útil para organizar seu código, mas tenha cautela ao utilizar esse tipo de técnica.
 
+Após inclusos, e desde que eles tenham as respectivas labels definidas para que sejam acessíveis pelas instruções de leitura e escrita, podemos tratar os dados em arquivos desse tipo como dados normais na memória e formular nosso programa.
+
 <a href="../index.html">Voltar ao índice</a><br>
-<a href="./3 - MMIO.html">3 - Utilizando a Memória</a>
+<a href="./3 - MMIO.html">3 - Entrada e Saída Mapeada em Memória</a>
 
 </div>

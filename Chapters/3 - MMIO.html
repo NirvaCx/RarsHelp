@@ -371,8 +371,7 @@ code {
 <a href="../index.html">Voltar ao índice</a></p>
 <p>(Entrada e saída mapeada em memória)</p>
 <h3 id="31-bitmap-display"><strong>3.1 Bitmap Display</strong></h3>
-<p><strong>Importante: a notação &quot;0x&quot; antes de números significa que estamos representando-os na base hexadecimal (base 16)</strong></p>
-<p>O bitmap display é uma ferramenta que possibilita a visualização e geração de imagens, modificando píxeis mapeados na memória. Seus endereços são:</p>
+<p>O bitmap display é uma ferramenta que possibilita a visualização e geração de imagens, modificando píxeis mapeados na memória. O BMD possui um espaço especial na memória, que iremos acessar normalmente com as instruções de escrita. Especificamente, são dois espaços, cada um tendo início em:</p>
 <p>Bitmap Display (Frame 1): <code>0xff000000</code><br>
 Bitmap Display (Frame 2): <code>0xff100000</code></p>
 <p>A seleção do frame do bitmap display que está sendo mostrado é feita no alterando o valor armazenado no endereço de memória <code>0xff200604</code>
@@ -386,13 +385,14 @@ lw	t0, <span class="hljs-number">0</span>(t1) <span class="hljs-comment"># carre
 xori t1, t1, <span class="hljs-number">1</span>
 </div></code></pre>
 <p>Isso é particularmente útil quando queremos mostrar um frame enquanto o próximo ainda está sendo renderizado.</p>
-<p>Os pixels em cada frame do BMD são codificados utilizando 8 bits (ou 1 byte) de memória (Diferentemente dos usuais 24 bits - 1 byte representando a intensidade de cada cor),</p>
-<p>Eles possuem o seguinte formato:<br>
-<code>0bBBGGGRRR</code><br>
+<p>Os pixels em cada frame do BMD são codificados utilizando 8 bits (ou 1 byte) de memória. Eles possuem o seguinte formato:<br>
+<code>0bBBGGGRRR</code> (A notação <code>0b</code> indica que estamos trabalhando com valores na base 2)<br>
 Ou seja, os dois bits mais significativos codificam a cor azul, os três dispostos no meio codificam a cor verde e os três menos significativos representam o vermelho.</p>
 <p>A cor branca, por exemplo, é representada na memória como <code>0xff</code></p>
-<p>Note que o endereçamento no RARS é de 8 em 8 bits, então podemos usar <code>sb</code> para carregar pixels no display:</p>
+<p>Lembre que o endereçamento no RARS é de 8 em 8 bits, então podemos usar <code>sb</code> para carregar pixels individualmente no display:</p>
 <pre class="hljs"><code><div>li	t0, <span class="hljs-number">0xff000000</span> <span class="hljs-comment"># carrega em t0 o endereco do frame 0</span>
+				   <span class="hljs-comment"># note que quando queremos carregar um endereco</span>
+				   <span class="hljs-comment"># sem utilizar uma label, basta usar a instrucao "load immediate"</span>
 li	t1, <span class="hljs-number">0xff</span> <span class="hljs-comment"># carrega o numero que representa a cor branca</span>
 			 <span class="hljs-comment"># em t1</span>
 sb	t1, <span class="hljs-number">0</span>(t0) <span class="hljs-comment"># poe a cor branca no primeiro pixel</span>
@@ -401,7 +401,7 @@ sb	t1, <span class="hljs-number">0</span>(t0) <span class="hljs-comment"># poe a
 			  
 sb	t1, <span class="hljs-number">2</span>(t0) <span class="hljs-comment"># faz o mesmo no terceiro pixel</span>
 </div></code></pre>
-<p>Note que, com o comando <code>sw</code>, podemos salvar quatro píxeis de uma vez. Isso é útil para a renderização de imagens, especialmente imagens cujos tamanhos em largura sejam múltiplos de quatro. Ainda é possível utilizar esse método para a renderização de imagens de outros tamanhos, mas é necessário tomar bastante cuidado para evitar bugs e overflows.</p>
+<p>Note que, com o comando <code>sw</code>, podemos salvar quatro píxeis de uma vez. Isso é útil para a renderização de imagens, especialmente imagens cujos tamanhos em largura sejam múltiplos de 4. Ainda é possível utilizar esse método para a renderização de imagens de outros tamanhos, mas é necessário tomar bastante cuidado para evitar overflows.</p>
 <p>Botando em prática:</p>
 <pre class="hljs"><code><div>li	t0, <span class="hljs-number">0xff000000</span>
 li	t1, <span class="hljs-number">0xff0738c0</span>
@@ -444,8 +444,9 @@ li	a0, <span class="hljs-number">500</span>
 ecall
 </div></code></pre>
 <h3 id="32---acessando-o-teclado"><strong>3.2 - Acessando o Teclado</strong></h3>
+<p>O acesso ao teclado, apesar de parecer mais fácil, é talvez mais complicado do que acessar o bitmap display. Para acessar o teclado, precisamos saber se alguma tecla está sendo pressionada, e qual delas está sendo pressionada. Precisamos também definir se queremos receber input por interrupção (não recomendado para um jogo) ou se queremos fazer &quot;polling&quot; (essencialmente &quot;perguntar&quot; pro teclado se ele tem input pra dar de vez em quando). O polling é útil para inputs contínuos. Infelizmente, o RARS tem uma taxa de polling (LENTA! Por volta de 5hz ou até menos) dependente no sistema operacional, mas ainda é melhor que nada.</p>
 <p><a href="../index.html">Voltar ao índice</a><br>
-<a href="./4 - Render.html">2 - Renderização de Imagens</a></p>
+<a href="./4 - Render.html">4 - Renderização de Imagens</a></p>
 </div>
 </body>
 </html>
