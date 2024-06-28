@@ -115,7 +115,44 @@ ecall
 
 ### **3.2 - Acessando o Teclado**
 
-O acesso ao teclado, apesar de parecer mais fácil, é talvez mais complicado do que acessar o bitmap display. Para acessar o teclado, precisamos saber se alguma tecla está sendo pressionada, e qual delas está sendo pressionada. Precisamos também definir se queremos receber input por interrupção (não recomendado para um jogo) ou se queremos fazer "polling" (essencialmente "perguntar" pro teclado se ele tem input pra dar de vez em quando). O polling é útil para inputs contínuos. Infelizmente, o RARS tem uma taxa de polling (LENTA! Por volta de 5hz ou até menos) dependente no sistema operacional, mas ainda é melhor que nada.
+Para acessar o teclado, precisamos saber se alguma tecla está sendo pressionada, e qual delas está sendo pressionada. Infelizmente, o RARS tem uma taxa de polling dependente na velocidade de entrada do sistema operacional, mas ainda é melhor que nada, e é possível mudar essa configuração. Para fins desse guia, não consideraremos entrada por interrupção.
+
+O endereço de acesso aos dados do teclado são:<br>
+`0xff200000` - O primeiro bit indica se alguma tecla está pressionada. Não altere o segundo bit, pois ele que seleciona polling ou interrupção.<br>
+`0xff200004` - Código ASCII da tecla pressionada.
+
+O código abaixo exemplifica o uso de entradas no teclado em um menu de um jogo.
+
+```r
+# [...]
+
+mainMenuSelect:
+		# Código abaixo obtém a entrada
+		lw	t0, 0xff200000 # carrega em t0 o endereço do status do teclado.
+		lw	t1, 0(t0) # carrega o status do teclado em t1.
+		
+		andi	t1, t1, 1 # isso é um processo de mascaramento. Apenas queremos saber sobre o primeiro bit de t1, que indica se alguma tecla foi pressionada.
+		
+		beq	t1, zero, mainMenuSelect # se a tecla ainda não tiver sido pressionada (status 0), continuamos aguardando a entrada.
+		
+		lb	t1, 4(t0) # estamos acessando o byte guardado em 0xff200004, ou seja, em t0 + 4.
+		
+		li	t2, 0x031 # Código ASCII do caractere '1'.
+		beq	t1, t2, storyScreen # verifica se a tecla pressionada é o número 1. Se sim, pulamos para a próxima parte do código.
+		
+		li	t2, '2' # Essa notação também é válida. Isso representa o código ASCII do caractere '2'.
+		# note a diferença do processo abaixo com o processo acima. é essencialmente a mesma coisa, porém a instrução "j" (jump) tem um alcance maior que a instrução branch.
+		# em geral, se estivermos pulando para uma label que está muito longe, é melhor utilizar a instrução jump. Nesse caso, apesar de omitida, a label exitProgram está a aproximadamente 1500 linhas de código de distância! (veja a referência da linguagem de máquina do RISC-V para entender melhor o alcance das instruções de jump e de branch)
+		# Portanto, primeiro verificamos se a entrada NÃO foi 2
+		# Se não foi, pulamos para "continueMMSelect" que nos retorna ao loop que aguarda a entrada do teclado, essencialmente evitando problemas causados por entradas inválidas como "3" nesse caso.
+		# Por outro lado, se foi 2, a instrução seguinte será executada e pularemos para a label exitProgram.
+		bne	t1, t2, continueMMSelect
+		j	exitProgram
+	continueMMSelect:
+		j	mainMenuSelect
+		
+# [...]
+```
 
 <a href="../index.html">Voltar ao índice</a><br>
 <a href="./4 - Render.html">4 - Renderização de Imagens</a>

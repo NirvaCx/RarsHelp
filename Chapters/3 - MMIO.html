@@ -367,7 +367,7 @@ code {
   </script>
 <h2 id="3---memory-mapped-input-and-output"><strong>3 - Memory Mapped Input and Output</strong></h2>
 <div style="text-align: justify">
-<p><a href="./2 - Data.html">2 - Arquivos de Dados e Imagens</a>
+<p><a href="./2 - Data.html">2 - Arquivos de Dados e Imagens</a><br>
 <a href="../index.html">Voltar ao índice</a></p>
 <p>(Entrada e saída mapeada em memória)</p>
 <h3 id="31-bitmap-display"><strong>3.1 Bitmap Display</strong></h3>
@@ -444,7 +444,40 @@ li	a0, <span class="hljs-number">500</span>
 ecall
 </div></code></pre>
 <h3 id="32---acessando-o-teclado"><strong>3.2 - Acessando o Teclado</strong></h3>
-<p>O acesso ao teclado, apesar de parecer mais fácil, é talvez mais complicado do que acessar o bitmap display. Para acessar o teclado, precisamos saber se alguma tecla está sendo pressionada, e qual delas está sendo pressionada. Precisamos também definir se queremos receber input por interrupção (não recomendado para um jogo) ou se queremos fazer &quot;polling&quot; (essencialmente &quot;perguntar&quot; pro teclado se ele tem input pra dar de vez em quando). O polling é útil para inputs contínuos. Infelizmente, o RARS tem uma taxa de polling (LENTA! Por volta de 5hz ou até menos) dependente no sistema operacional, mas ainda é melhor que nada.</p>
+<p>Para acessar o teclado, precisamos saber se alguma tecla está sendo pressionada, e qual delas está sendo pressionada. Infelizmente, o RARS tem uma taxa de polling dependente na velocidade de entrada do sistema operacional, mas ainda é melhor que nada, e é possível mudar essa configuração. Para fins desse guia, não consideraremos entrada por interrupção.</p>
+<p>O endereço de acesso aos dados do teclado são:<br>
+<code>0xff200000</code> - O primeiro bit indica se alguma tecla está pressionada. Não altere o segundo bit, pois ele que seleciona polling ou interrupção.<br>
+<code>0xff200004</code> - Código ASCII da tecla pressionada.</p>
+<p>O código abaixo exemplifica o uso de entradas no teclado em um menu de um jogo.</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># [...]</span>
+
+mainMenuSelect:
+		<span class="hljs-comment"># Código abaixo obtém a entrada</span>
+		lw	t0, <span class="hljs-number">0xff200000</span> <span class="hljs-comment"># carrega em t0 o endereço do status do teclado.</span>
+		lw	t1, <span class="hljs-number">0</span>(t0) <span class="hljs-comment"># carrega o status do teclado em t1.</span>
+		
+		andi	t1, t1, <span class="hljs-number">1</span> <span class="hljs-comment"># isso é um processo de mascaramento. Apenas queremos saber sobre o primeiro bit de t1, que indica se alguma tecla foi pressionada.</span>
+		
+		beq	t1, zero, mainMenuSelect <span class="hljs-comment"># se a tecla ainda não tiver sido pressionada (status 0), continuamos aguardando a entrada.</span>
+		
+		lb	t1, <span class="hljs-number">4</span>(t0) <span class="hljs-comment"># estamos acessando o byte guardado em 0xff200004, ou seja, em t0 + 4.</span>
+		
+		li	t2, <span class="hljs-number">0x031</span> <span class="hljs-comment"># Código ASCII do caractere '1'.</span>
+		beq	t1, t2, storyScreen <span class="hljs-comment"># verifica se a tecla pressionada é o número 1. Se sim, pulamos para a próxima parte do código.</span>
+		
+		li	t2, <span class="hljs-string">'2'</span> <span class="hljs-comment"># Essa notação também é válida. Isso representa o código ASCII do caractere '2'.</span>
+		<span class="hljs-comment"># note a diferença do processo abaixo com o processo acima. é essencialmente a mesma coisa, porém a instrução "j" (jump) tem um alcance maior que a instrução branch.</span>
+		<span class="hljs-comment"># em geral, se estivermos pulando para uma label que está muito longe, é melhor utilizar a instrução jump. Nesse caso, apesar de omitida, a label exitProgram está a aproximadamente 1500 linhas de código de distância! (veja a referência da linguagem de máquina do RISC-V para entender melhor o alcance das instruções de jump e de branch)</span>
+		<span class="hljs-comment"># Portanto, primeiro verificamos se a entrada NÃO foi 2</span>
+		<span class="hljs-comment"># Se não foi, pulamos para "continueMMSelect" que nos retorna ao loop que aguarda a entrada do teclado, essencialmente evitando problemas causados por entradas inválidas como "3" nesse caso.</span>
+		<span class="hljs-comment"># Por outro lado, se foi 2, a instrução seguinte será executada e pularemos para a label exitProgram.</span>
+		bne	t1, t2, continueMMSelect
+		j	exitProgram
+	continueMMSelect:
+		j	mainMenuSelect
+		
+<span class="hljs-comment"># [...]</span>
+</div></code></pre>
 <p><a href="../index.html">Voltar ao índice</a><br>
 <a href="./4 - Render.html">4 - Renderização de Imagens</a></p>
 </div>
