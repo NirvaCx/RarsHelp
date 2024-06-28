@@ -10,6 +10,8 @@ Esse documento é direcionado para alunos que já compreenderam o básico de Ass
 
 Ademais, as informações apresentadas nesse texto não são técnicas, nem objetivas. Elas foram formuladas a partir do conhecimento prático da autora, e não são conselhos finais, e o texto está aberto a sugestões de melhorias e retificações técnicas, desde que estas não atrapalhem o entendimento do leitor.
 
+Finalmente, recomendo que vocês acessem o repositório <a href="https://github.com/victorlisboa/LAMAR">Learning Assembly for Machine Architecture and RISC-V (LAMAR)</a>, que é uma compilação de vários outros recursos úteis para  a disciplina de ISC.
+
 ### **0.1 - Recursos**
 
 Os materiais e arquivos utilizados neste texto estão disponíveis no repositório <a href="https://github.com/NirvaCx/RarsHelp">RarsHelp</a>, exceto os códigos-fonte, já que basta copiá-los deste texto. Entre em contato ou crie um issue caso você ache que algo está faltando.
@@ -19,6 +21,6 @@ Os materiais e arquivos utilizados neste texto estão disponíveis no repositór
 <a href="./Chapters/1 - Memory.html">1 - Utilizando a Memória</a><br>
 <a href="./Chapters/2 - Data.html">2 - Arquivos de Dados e Imagens</a><br>
 <a href="./Chapters/3 - MMIO.html">3 - Entrada e Saída Mapeada Em Memória</a><br>
-<a href="./Chapters/4 - Render.html">4 - Renderização de Imagens</a><br>
+<a href="./Chapters/4 - Render.html">4 - Renderização de Imagens</a> (WIP)<br>
 
 </div>
