@@ -152,7 +152,7 @@ Depois, verificamos se a posição X somada à largura da imagem ultrapassa 320,
 	
 	li		t1, 240
 	add		t0, s1, a2
-	bgt		t0, t1, endREnder # se Y + alt > 240, não renderizar
+	bgt		t0, t1, endRender # se Y + alt > 240, não renderizar
 	
 	# [...]
 	
@@ -212,10 +212,10 @@ Isso conclui a função de renderização de uma imagem. Essa implementação é
 .include "breakable.data"
 
 imageX:
-.word 0
+.word 168
 
 imageY:
-.word 0
+.word 80
 
 .text # seção de execução
 
@@ -264,7 +264,7 @@ renderImage:
 	
 	li		t1, 240
 	add		t0, s1, a2
-	bgt		t0, t1, endREnder # se Y + alt > 240, não renderizar
+	bgt		t0, t1, endRender # se Y + alt > 240, não renderizar
 	
 	li		t1, 0 # t1 = Y (linha) atual
 	lineLoop:

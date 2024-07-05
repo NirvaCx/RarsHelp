@@ -488,7 +488,7 @@ renderImage:
 	
 	li		t1, <span class="hljs-number">240</span>
 	add		t0, s1, a2
-	bgt		t0, t1, endREnder <span class="hljs-comment"># se Y + alt &gt; 240, não renderizar</span>
+	bgt		t0, t1, endRender <span class="hljs-comment"># se Y + alt &gt; 240, não renderizar</span>
 	
 	<span class="hljs-comment"># [...]</span>
 	
@@ -540,10 +540,10 @@ renderImage:
 .include <span class="hljs-string">"breakable.data"</span>
 
 imageX:
-.word <span class="hljs-number">0</span>
+.word <span class="hljs-number">168</span>
 
 imageY:
-.word <span class="hljs-number">0</span>
+.word <span class="hljs-number">80</span>
 
 .text <span class="hljs-comment"># seção de execução</span>
 
@@ -592,7 +592,7 @@ renderImage:
 	
 	li		t1, <span class="hljs-number">240</span>
 	add		t0, s1, a2
-	bgt		t0, t1, endREnder <span class="hljs-comment"># se Y + alt &gt; 240, não renderizar</span>
+	bgt		t0, t1, endRender <span class="hljs-comment"># se Y + alt &gt; 240, não renderizar</span>
 	
 	li		t1, <span class="hljs-number">0</span> <span class="hljs-comment"># t1 = Y (linha) atual</span>
 	lineLoop:
