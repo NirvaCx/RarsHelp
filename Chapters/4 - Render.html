@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>4 - Render.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="4---renderiza%C3%A7%C3%A3o-de-imagens"><strong>4 - Renderização de Imagens</strong></h2>
+<div style="text-align: justify">
+<p><a href="./3 - MMIO.html">3 - Entrada e Saída Mapeada em Memória</a><br>
+<a href="../index.html">Voltar ao índice</a></p>
+<p>Muito provavelmente, a etapa inicial para a realização do projeto é criar um programa que inclua um arquivo de imagem e faça sua renderização. Esta seção irá se aprofundar nesse processo. Utilizaremos o Bitmap Display e nosso programa irá renderizar uma imagem em qualquer posição da tela, e ainda incluirá testes preventivos caso tentemos renderizar uma imagem fora da tela.</p>
+<h3 id="41---chamando-uma-fun%C3%A7%C3%A3o">4.1 - Chamando uma Função</h3>
+<p>Retomemos o que aprendemos na seção de dados e na seção anterior. A imagem a ser utilizada será a mesma que foi apresentada antes:</p>
+<center>
+<figure>
+<img src="../breakable.bmp" width="200" height="200">
+<figcaption><font size = 2 color = "gray">Breakable.bmp  (16x16)</font></figcaption>
+</figure>
+</center>
+<p>Incluiremos ela no nosso código, na seção de dados, após utilizar o <code>bmp2oac3</code> para formatá-la em um arquivo <code>.data</code>. Além disso, definiremos variáveis na memória guardando a posição na qual queremos renderizar nossa imagem (x e y):</p>
+<pre class="hljs"><code><div>.data <span class="hljs-comment"># seção de dados</span>
+ 
+.include <span class="hljs-string">"breakable.data"</span>
+
+imageX:
+.word <span class="hljs-number">0</span>
+
+imageY:
+.word <span class="hljs-number">0</span>
+
+ <span class="hljs-comment"># [...]</span>
+</div></code></pre>
+<p>Vamos relembrar a estrutura desse arquivo.</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># breakable.data</span>
+breakable: 
+.word <span class="hljs-number">16</span>, <span class="hljs-number">16</span>
+.byte <span class="hljs-number">199</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">199</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">183</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">111</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">111</span>,<span class="hljs-number">183</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">103</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">23</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">111</span>,<span class="hljs-number">111</span>,<span class="hljs-number">103</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">30</span>,<span class="hljs-number">103</span>,<span class="hljs-number">103</span>,<span class="hljs-number">103</span>,<span class="hljs-number">22</span>,<span class="hljs-number">30</span>,<span class="hljs-number">103</span>,<span class="hljs-number">30</span>,<span class="hljs-number">103</span>,<span class="hljs-number">103</span>,<span class="hljs-number">103</span>,<span class="hljs-number">30</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">11</span>,<span class="hljs-number">255</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">183</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">31</span>,<span class="hljs-number">183</span>,<span class="hljs-number">255</span>,<span class="hljs-number">11</span>,
+<span class="hljs-number">10</span>,<span class="hljs-number">13</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">13</span>,<span class="hljs-number">10</span>,
+<span class="hljs-number">1</span>,<span class="hljs-number">13</span>,<span class="hljs-number">22</span>,<span class="hljs-number">13</span>,<span class="hljs-number">22</span>,<span class="hljs-number">13</span>,<span class="hljs-number">13</span>,<span class="hljs-number">13</span>,<span class="hljs-number">22</span>,<span class="hljs-number">22</span>,<span class="hljs-number">22</span>,<span class="hljs-number">22</span>,<span class="hljs-number">13</span>,<span class="hljs-number">13</span>,<span class="hljs-number">13</span>,<span class="hljs-number">1</span>,
+<span class="hljs-number">199</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">199</span>,
+</div></code></pre>
+<p>Note que o arquivo já nos fornece uma label correspondente <code>breakable</code>. Utilizaremos essa label no nosso código para acessar os dados da imagem. Novamente, temos duas words que descrevem a largura e a altura da imagem, seguidas de <code>largura * altura</code> bytes descrevendo cada pixel da imagem.</p>
+<p>Podemos, agora, escrever o código de renderização. Vamos começar resgatando as variáveis da memória, e vamos definir a função dos registradores:</p>
+<pre class="hljs"><code><div>.text
+
+main:
+	
+	<span class="hljs-comment"># Passando argumentos</span>
+	la	a0, breakable
+	lw	a1, imageX
+	lw	a2, imageY
+	<span class="hljs-comment"># Chamando a função</span>
+	jal	renderImage
+	
+	<span class="hljs-comment"># Terminar programa</span>
+	li	a7, <span class="hljs-number">10</span> 
+	ecall
+	
+renderImage:
+	<span class="hljs-comment"># Argumentos da função:</span>
+	<span class="hljs-comment"># a0 terá o endereço inicial da imagem</span>
+	<span class="hljs-comment"># a1 terá a posição X da imagem</span>
+	<span class="hljs-comment"># a2 terá a posição Y da imagem</span>
+	ret
+</div></code></pre>
+<p>A instrução <code>jal</code> salva no registrador especial de retorno o endereço da próxima instrução, e pula pra outra parte do código. Isso é útil para organizar funções. No contexto de ISC, trabalharemos apenas com funções simples, que não chamam outras funções. Para os curiosos, trabalhar com funções que chamam outras funções requer trabalhar com pilhas, uma estrutura de dados que vocês conhecerão em outra disciplina.</p>
+<p>Essa instrução trabalha em conjunto com a função <code>ret</code>, que simplesmente pula para a instrução indicada pelo registrador de retorno. Isso significa que a ordem de execução desse código vai ser da forma:</p>
+<pre class="hljs"><code><div>main -&gt; renderImage -&gt; continuar main de onde parou
+
+ou seja as instruções vão ser executadas nessa ordem no código acima:
+
+la -&gt; lw -&gt; lw -&gt; jal -&gt; ret -&gt; li -&gt; ecall
+</div></code></pre>
+<p>Note que <code>main</code> apenas <em>chama</em> a função <code>renderImage</code>. Explicitamos isso para esclarecer a estrutura de uma chamada de função em assembly. A partir de agora, trabalharemos apenas com o código dessa função.</p>
+<h3 id="42---carregando-as-informa%C3%A7%C3%B5es">4.2 - Carregando as Informações</h3>
+<p>O código abaixo realiza as etapas preliminares para começarmos a renderizar a imagem - organizando todas as informações para começar o loop.</p>
+<pre class="hljs"><code><div>
+renderImage:
+	<span class="hljs-comment"># Argumentos da função:</span>
+	<span class="hljs-comment"># a0 contém o endereço inicial da imagem</span>
+	<span class="hljs-comment"># a1 contém a posição X da imagem</span>
+	<span class="hljs-comment"># a2 contém a posição Y da imagem</span>
+	
+	
+	lw		s0, <span class="hljs-number">0</span>(a0) <span class="hljs-comment"># Guarda em s0 a largura da imagem</span>
+	lw		s1, <span class="hljs-number">4</span>(a0) <span class="hljs-comment"># Guarda em s1 a altura da imagem</span>
+	
+	mv		s2, a0 <span class="hljs-comment"># Copia o endereço da imagem para s2</span>
+	addi	s2, s2, <span class="hljs-number">8</span> <span class="hljs-comment"># Pula 2 words - s2 agora aponta para o primeiro pixel da imagem</span>
+	
+	li		s3, <span class="hljs-number">0xff000000</span> <span class="hljs-comment"># carrega em s3 o endereço do bitmap display</span>
+	
+	<span class="hljs-comment"># [...]</span>
+
+</div></code></pre>
+<p>Agora, devemos realizar algumas operações com essas informações - principalmente, definir o endereço no bitmap display no qual começaremos a renderizar a imagem, e, além disso, verificar se não estamos tentando renderizar numa posição inválida. Vamos fazer a primeira coisa.</p>
+<pre class="hljs"><code><div>
+	li		t1, <span class="hljs-number">320</span> <span class="hljs-comment"># t1 é o tamanho de uma linha no bitmap display</span>
+	mul		t1, t1, a2 <span class="hljs-comment"># multiplica t1 pela posição Y desejada no bitmap display.</span>
+	<span class="hljs-comment"># Multiplicamos 320 pela posição desejada para obter um offset em relação ao endereço inicial do bimap display correspondente à linha na qual queremos desenhar a imagem. Basta agora obter mais um offset para chegar até a coluna que queremos. Isso é mais simples, basta adicionar a posição X.</span>
+	add		t1, t1, a1
+	<span class="hljs-comment"># t1 agora tem o offset completo, basta adicioná-lo ao endereço do bitmap.</span>
+	add		s3, s3, t1
+	<span class="hljs-comment"># O endereço em s3 agora representa exatamente a posição em que o primeiro pixel da nossa imagem deve ser renderizado.</span>
+	
+</div></code></pre>
+<p>Vamos agora escrever o código que impede que desenhemos a imagem em uma posição inválida. A lógica é particularmente simples, apesar de o código parecer complicado. Primeiro, verificamos se a posição X ou a posição Y são negativas. Automaticamente isso é inválido.</p>
+<p>Depois, verificamos se a posição X somada à largura da imagem ultrapassa 320, ou se a posição Y somada à altura da imagem ultrapassa 240. Em ambos os casos, estaríamos tentando desenhar coisas além das bordas do bitmap display e, portanto, a renderização deve ser abortada.</p>
+<pre class="hljs"><code><div>	blt		a1, zero, endRender <span class="hljs-comment"># se X &lt; 0, não renderizar</span>
+	blt		a2, zero, endRender <span class="hljs-comment"># se Y &lt; 0, não renderizar</span>
+	
+	li		t1, <span class="hljs-number">320</span>
+	add		t0, s0, a1
+	bgt		t0, t1, endRender <span class="hljs-comment"># se X + larg &gt; 320, não renderizar</span>
+	
+	li		t1, <span class="hljs-number">240</span>
+	add		t0, s1, a2
+	bgt		t0, t1, endREnder <span class="hljs-comment"># se Y + alt &gt; 240, não renderizar</span>
+	
+	<span class="hljs-comment"># [...]</span>
+	
+	endRender:
+	ret
+	
+</div></code></pre>
+<p>Finalmente, faremos o loop de renderização. A ideia é simples: iremos iterar por cada pixel na imagem e, simultaneamente, por cada endereço no Bitmap Display correspondente. Copiamos a informação da imagem para o display até chegar no final de uma linha da imagem, adicionamos 320 ao endereço do display para &quot;pular uma linha&quot;, e repetimos o processo para cada linha até chegarmos ao final da imagem. Em pseudocódigo:</p>
+<pre class="hljs"><code><div>para cada linha na imagem {
+	para cada pixel na linha{
+		pixel no display = pixel na imagem
+	}
+}
+</div></code></pre>
+<p>Agora, em assembly:</p>
+<pre class="hljs"><code><div>	
+	li		t1, <span class="hljs-number">0</span> <span class="hljs-comment"># t1 = Y (linha) atual</span>
+	lineLoop:
+		bge		t1, s1, endRender <span class="hljs-comment"># Se terminamos a última linha da imagem, encerrar</span>
+		li		t0, <span class="hljs-number">0</span> <span class="hljs-comment"># t0 = X (coluna) atual</span>
+		
+		columnLoop:
+			bge		t0, s0, columnEnd <span class="hljs-comment"># Se terminamos a linha atual, ir pra próxima</span>
+			
+			lb		t2, <span class="hljs-number">0</span>(s2) <span class="hljs-comment"># Pega o pixel da imagem</span>
+			sb		t2, <span class="hljs-number">0</span>(s3) <span class="hljs-comment"># Põe o pixel no display</span>
+			
+			<span class="hljs-comment"># Incrementa os endereços e o contador de coluna</span>
+			addi	s2, s2, <span class="hljs-number">1</span>
+			addi	s3, s3, <span class="hljs-number">1</span>
+			addi	t0, t0, <span class="hljs-number">1</span>
+			j		columnLoop
+			
+		columnEnd:
+		
+		addi	s3, s3, <span class="hljs-number">320</span> <span class="hljs-comment"># próxima linha no bitmap display</span>
+		sub		s3, s3, s0 <span class="hljs-comment"># reposiciona o endereço de coluna no bitmap display (subtraindo a largura da imagem). Note que essa subtração é necessária - verifique os efeitos da ausência dela você mesmo, montando esse código.</span>
+		
+		addi	t1, t1, <span class="hljs-number">1</span> <span class="hljs-comment"># incrementar o contador de altura</span>
+		j		lineLoop
+		
+	endRender:
+	
+	ret
+</div></code></pre>
+<p>Isso conclui a função de renderização de uma imagem. Essa implementação é bem básica - no projeto vocês provavelmente vão utilizar mais parâmetros, como por exemplo o frame no qual a imagem deve ser renderizada, uma mecânica para tratar <em>spritesheets</em>, entre outras coisas. Abaixo segue o código completo dessa seção:</p>
+<pre class="hljs"><code><div>.data <span class="hljs-comment"># seção de dados</span>
+ 
+.include <span class="hljs-string">"breakable.data"</span>
+
+imageX:
+.word <span class="hljs-number">0</span>
+
+imageY:
+.word <span class="hljs-number">0</span>
+
+.text <span class="hljs-comment"># seção de execução</span>
+
+main:
+	
+	<span class="hljs-comment"># Passando argumentos</span>
+	la	a0, breakable
+	lw	a1, imageX
+	lw	a2, imageY
+	<span class="hljs-comment"># Chamando a função</span>
+	jal	renderImage
+	
+	<span class="hljs-comment"># Terminar programa</span>
+	li	a7, <span class="hljs-number">10</span> 
+	ecall
+	
+renderImage:
+	<span class="hljs-comment"># Argumentos da função:</span>
+	<span class="hljs-comment"># a0 contém o endereço inicial da imagem</span>
+	<span class="hljs-comment"># a1 contém a posição X da imagem</span>
+	<span class="hljs-comment"># a2 contém a posição Y da imagem</span>
+	
+	
+	lw		s0, <span class="hljs-number">0</span>(a0) <span class="hljs-comment"># Guarda em s0 a largura da imagem</span>
+	lw		s1, <span class="hljs-number">4</span>(a0) <span class="hljs-comment"># Guarda em s1 a altura da imagem</span>
+	
+	mv		s2, a0 <span class="hljs-comment"># Copia o endereço da imagem para s2</span>
+	addi	s2, s2, <span class="hljs-number">8</span> <span class="hljs-comment"># Pula 2 words - s2 agora aponta para o primeiro pixel da imagem</span>
+	
+	li		s3, <span class="hljs-number">0xff000000</span> <span class="hljs-comment"># carrega em s3 o endereço do bitmap display</span>
+	
+	li		t1, <span class="hljs-number">320</span> <span class="hljs-comment"># t1 é o tamanho de uma linha no bitmap display</span>
+	mul		t1, t1, a2 <span class="hljs-comment"># multiplica t1 pela posição Y desejada no bitmap display.</span>
+	<span class="hljs-comment"># Multiplicamos 320 pela posição desejada para obter um offset em relação ao endereço inicial do bimap display correspondente à linha na qual queremos desenhar a imagem. Basta agora obter mais um offset para chegar até a coluna que queremos. Isso é mais simples, basta adicionar a posição X.</span>
+	add		t1, t1, a1
+	<span class="hljs-comment"># t1 agora tem o offset completo, basta adicioná-lo ao endereço do bitmap.</span>
+	add		s3, s3, t1
+	<span class="hljs-comment"># O endereço em s3 agora representa exatamente a posição em que o primeiro pixel da nossa imagem deve ser renderizado.</span>
+
+	blt		a1, zero, endRender <span class="hljs-comment"># se X &lt; 0, não renderizar</span>
+	blt		a2, zero, endRender <span class="hljs-comment"># se Y &lt; 0, não renderizar</span>
+	
+	li		t1, <span class="hljs-number">320</span>
+	add		t0, s0, a1
+	bgt		t0, t1, endRender <span class="hljs-comment"># se X + larg &gt; 320, não renderizar</span>
+	
+	li		t1, <span class="hljs-number">240</span>
+	add		t0, s1, a2
+	bgt		t0, t1, endREnder <span class="hljs-comment"># se Y + alt &gt; 240, não renderizar</span>
+	
+	li		t1, <span class="hljs-number">0</span> <span class="hljs-comment"># t1 = Y (linha) atual</span>
+	lineLoop:
+		bge		t1, s1, endRender <span class="hljs-comment"># Se terminamos a última linha da imagem, encerrar</span>
+		li		t0, <span class="hljs-number">0</span> <span class="hljs-comment"># t0 = X (coluna) atual</span>
+		
+		columnLoop:
+			bge		t0, s0, columnEnd <span class="hljs-comment"># Se terminamos a linha atual, ir pra próxima</span>
+			
+			lb		t2, <span class="hljs-number">0</span>(s2) <span class="hljs-comment"># Pega o pixel da imagem</span>
+			sb		t2, <span class="hljs-number">0</span>(s3) <span class="hljs-comment"># Põe o pixel no display</span>
+			
+			<span class="hljs-comment"># Incrementa os endereços e o contador de coluna</span>
+			addi	s2, s2, <span class="hljs-number">1</span>
+			addi	s3, s3, <span class="hljs-number">1</span>
+			addi	t0, t0, <span class="hljs-number">1</span>
+			j		columnLoop
+			
+		columnEnd:
+		
+		addi	s3, s3, <span class="hljs-number">320</span> <span class="hljs-comment"># próxima linha no bitmap display</span>
+		sub		s3, s3, s0 <span class="hljs-comment"># reposiciona o endereço de coluna no bitmap display (subtraindo a largura da imagem). Note que essa subtração é necessária - verifique os efeitos da ausência dela você mesmo, montando esse código.</span>
+		
+		addi	t1, t1, <span class="hljs-number">1</span> <span class="hljs-comment"># incrementar o contador de altura</span>
+		j		lineLoop
+		
+	endRender:
+	
+	ret
+</div></code></pre>
+<p><a href="../index.html">Voltar ao índice</a></p>
+</div>
+</body>
+</html>
