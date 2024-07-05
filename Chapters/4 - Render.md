@@ -6,7 +6,7 @@
 
 Muito provavelmente, a etapa inicial para a realização do projeto é criar um programa que inclua um arquivo de imagem e faça sua renderização. Esta seção irá se aprofundar nesse processo. Utilizaremos o Bitmap Display e nosso programa irá renderizar uma imagem em qualquer posição da tela, e ainda incluirá testes preventivos caso tentemos renderizar uma imagem fora da tela.
 
-### 4.1 - Chamando uma Função
+### **4.1 - Chamando uma Função**
 
 Retomemos o que aprendemos na seção de dados e na seção anterior. A imagem a ser utilizada será a mesma que foi apresentada antes:
 
@@ -99,7 +99,7 @@ la -> lw -> lw -> jal -> ret -> li -> ecall
 
 Note que `main` apenas *chama* a função `renderImage`. Explicitamos isso para esclarecer a estrutura de uma chamada de função em assembly. A partir de agora, trabalharemos apenas com o código dessa função. 
 
-### 4.2 - Carregando as Informações
+### **4.2 - Carregando as Informações**
 
 O código abaixo realiza as etapas preliminares para começarmos a renderizar a imagem - organizando todas as informações para começar o loop.
 
@@ -124,6 +124,8 @@ renderImage:
 
 ```
 
+### **4.3 - Tratamento de Dados**
+
 Agora, devemos realizar algumas operações com essas informações - principalmente, definir o endereço no bitmap display no qual começaremos a renderizar a imagem, e, além disso, verificar se não estamos tentando renderizar numa posição inválida. Vamos fazer a primeira coisa.
 
 ```r
@@ -137,6 +139,8 @@ Agora, devemos realizar algumas operações com essas informações - principalm
 	# O endereço em s3 agora representa exatamente a posição em que o primeiro pixel da nossa imagem deve ser renderizado.
 	
 ```
+
+### **4.4 - Prevenção de Bugs**
 
 Vamos agora escrever o código que impede que desenhemos a imagem em uma posição inválida. A lógica é particularmente simples, apesar de o código parecer complicado. Primeiro, verificamos se a posição X ou a posição Y são negativas. Automaticamente isso é inválido.
 
@@ -160,6 +164,8 @@ Depois, verificamos se a posição X somada à largura da imagem ultrapassa 320,
 	ret
 	
 ```
+
+### **4.5 - Loop de Renderização**
 
 Finalmente, faremos o loop de renderização. A ideia é simples: iremos iterar por cada pixel na imagem e, simultaneamente, por cada endereço no Bitmap Display correspondente. Copiamos a informação da imagem para o display até chegar no final de uma linha da imagem, adicionamos 320 ao endereço do display para "pular uma linha", e repetimos o processo para cada linha até chegarmos ao final da imagem. Em pseudocódigo:
 

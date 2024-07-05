@@ -370,7 +370,7 @@ code {
 <p><a href="./3 - MMIO.html">3 - Entrada e Saída Mapeada em Memória</a><br>
 <a href="../index.html">Voltar ao índice</a></p>
 <p>Muito provavelmente, a etapa inicial para a realização do projeto é criar um programa que inclua um arquivo de imagem e faça sua renderização. Esta seção irá se aprofundar nesse processo. Utilizaremos o Bitmap Display e nosso programa irá renderizar uma imagem em qualquer posição da tela, e ainda incluirá testes preventivos caso tentemos renderizar uma imagem fora da tela.</p>
-<h3 id="41---chamando-uma-fun%C3%A7%C3%A3o">4.1 - Chamando uma Função</h3>
+<h3 id="41---chamando-uma-fun%C3%A7%C3%A3o"><strong>4.1 - Chamando uma Função</strong></h3>
 <p>Retomemos o que aprendemos na seção de dados e na seção anterior. A imagem a ser utilizada será a mesma que foi apresentada antes:</p>
 <center>
 <figure>
@@ -445,7 +445,7 @@ ou seja as instruções vão ser executadas nessa ordem no código acima:
 la -&gt; lw -&gt; lw -&gt; jal -&gt; ret -&gt; li -&gt; ecall
 </div></code></pre>
 <p>Note que <code>main</code> apenas <em>chama</em> a função <code>renderImage</code>. Explicitamos isso para esclarecer a estrutura de uma chamada de função em assembly. A partir de agora, trabalharemos apenas com o código dessa função.</p>
-<h3 id="42---carregando-as-informa%C3%A7%C3%B5es">4.2 - Carregando as Informações</h3>
+<h3 id="42---carregando-as-informa%C3%A7%C3%B5es"><strong>4.2 - Carregando as Informações</strong></h3>
 <p>O código abaixo realiza as etapas preliminares para começarmos a renderizar a imagem - organizando todas as informações para começar o loop.</p>
 <pre class="hljs"><code><div>
 renderImage:
@@ -466,6 +466,7 @@ renderImage:
 	<span class="hljs-comment"># [...]</span>
 
 </div></code></pre>
+<h3 id="43---tratamento-de-dados"><strong>4.3 - Tratamento de Dados</strong></h3>
 <p>Agora, devemos realizar algumas operações com essas informações - principalmente, definir o endereço no bitmap display no qual começaremos a renderizar a imagem, e, além disso, verificar se não estamos tentando renderizar numa posição inválida. Vamos fazer a primeira coisa.</p>
 <pre class="hljs"><code><div>
 	li		t1, <span class="hljs-number">320</span> <span class="hljs-comment"># t1 é o tamanho de uma linha no bitmap display</span>
@@ -477,6 +478,7 @@ renderImage:
 	<span class="hljs-comment"># O endereço em s3 agora representa exatamente a posição em que o primeiro pixel da nossa imagem deve ser renderizado.</span>
 	
 </div></code></pre>
+<h3 id="44---preven%C3%A7%C3%A3o-de-bugs"><strong>4.4 - Prevenção de Bugs</strong></h3>
 <p>Vamos agora escrever o código que impede que desenhemos a imagem em uma posição inválida. A lógica é particularmente simples, apesar de o código parecer complicado. Primeiro, verificamos se a posição X ou a posição Y são negativas. Automaticamente isso é inválido.</p>
 <p>Depois, verificamos se a posição X somada à largura da imagem ultrapassa 320, ou se a posição Y somada à altura da imagem ultrapassa 240. Em ambos os casos, estaríamos tentando desenhar coisas além das bordas do bitmap display e, portanto, a renderização deve ser abortada.</p>
 <pre class="hljs"><code><div>	blt		a1, zero, endRender <span class="hljs-comment"># se X &lt; 0, não renderizar</span>
@@ -496,6 +498,7 @@ renderImage:
 	ret
 	
 </div></code></pre>
+<h3 id="45---loop-de-renderiza%C3%A7%C3%A3o"><strong>4.5 - Loop de Renderização</strong></h3>
 <p>Finalmente, faremos o loop de renderização. A ideia é simples: iremos iterar por cada pixel na imagem e, simultaneamente, por cada endereço no Bitmap Display correspondente. Copiamos a informação da imagem para o display até chegar no final de uma linha da imagem, adicionamos 320 ao endereço do display para &quot;pular uma linha&quot;, e repetimos o processo para cada linha até chegarmos ao final da imagem. Em pseudocódigo:</p>
 <pre class="hljs"><code><div>para cada linha na imagem {
 	para cada pixel na linha{

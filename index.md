@@ -16,11 +16,15 @@ Finalmente, recomendo que vocês acessem o repositório <a href="https://github.
 
 Os materiais e arquivos utilizados neste texto estão disponíveis no repositório <a href="https://github.com/NirvaCx/RarsHelp">RarsHelp</a>, exceto os códigos-fonte, já que basta copiá-los deste texto. Entre em contato ou crie um issue caso você ache que algo está faltando.
 
+### **0.1.1 - Recursos que estão faltando**
+
+O `bmp2oac3` de Linux está faltando - vou recompilar pra Linux uma outra hora. Mas, a princípio, você pode encontrar o código fonte em C dele na pasta *System Rars* no Aprender3 de ISC. Basta compilar o código.
+
 ### **0.2 - Índice**
 
 <a href="./Chapters/1 - Memory.html">1 - Utilizando a Memória</a><br>
 <a href="./Chapters/2 - Data.html">2 - Arquivos de Dados e Imagens</a><br>
 <a href="./Chapters/3 - MMIO.html">3 - Entrada e Saída Mapeada Em Memória</a><br>
-<a href="./Chapters/4 - Render.html">4 - Renderização de Imagens</a> (WIP)<br>
+<a href="./Chapters/4 - Render.html">4 - Renderização de Imagens</a><br>
 
 </div>
