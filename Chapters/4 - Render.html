@@ -378,16 +378,16 @@ code {
 <figcaption><font size = 2 color = "gray">Breakable.bmp  (16x16)</font></figcaption>
 </figure>
 </center>
-<p>Incluiremos ela no nosso código, na seção de dados, após utilizar o <code>bmp2oac3</code> para formatá-la em um arquivo <code>.data</code>. Além disso, definiremos variáveis na memória guardando a posição na qual queremos renderizar nossa imagem (x e y):</p>
+<p>Incluiremos ela no nosso código, na seção de dados, após utilizar o <code>bmp2oac3</code> para formatá-la em um arquivo <code>.data</code>. Além disso, definiremos variáveis na memória guardando a posição na qual queremos renderizar nossa imagem (x e y). Vamos supor, por exemplo, a posição X = 168, Y = 80:</p>
 <pre class="hljs"><code><div>.data <span class="hljs-comment"># seção de dados</span>
  
 .include <span class="hljs-string">"breakable.data"</span>
 
 imageX:
-.word <span class="hljs-number">0</span>
+.word <span class="hljs-number">168</span>
 
 imageY:
-.word <span class="hljs-number">0</span>
+.word <span class="hljs-number">80</span>
 
  <span class="hljs-comment"># [...]</span>
 </div></code></pre>
@@ -626,6 +626,12 @@ renderImage:
 	
 	ret
 </div></code></pre>
+<center>
+<figure>
+<img src="../resultado.png">
+<figcaption><font size = 2 color = "gray">O resultado do código no Bitmap Display</font></figcaption>
+</figure>
+</center>
 <p><a href="../index.html">Voltar ao índice</a></p>
 </div>
 </body>

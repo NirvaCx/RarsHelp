@@ -17,7 +17,7 @@ Retomemos o que aprendemos na seção de dados e na seção anterior. A imagem a
 </figure>
 </center>
 
-Incluiremos ela no nosso código, na seção de dados, após utilizar o `bmp2oac3` para formatá-la em um arquivo `.data`. Além disso, definiremos variáveis na memória guardando a posição na qual queremos renderizar nossa imagem (x e y):
+Incluiremos ela no nosso código, na seção de dados, após utilizar o `bmp2oac3` para formatá-la em um arquivo `.data`. Além disso, definiremos variáveis na memória guardando a posição na qual queremos renderizar nossa imagem (x e y). Vamos supor, por exemplo, a posição X = 168, Y = 80:
 
 ```r
 .data # seção de dados
@@ -25,10 +25,10 @@ Incluiremos ela no nosso código, na seção de dados, após utilizar o `bmp2oac
 .include "breakable.data"
 
 imageX:
-.word 0
+.word 168
 
 imageY:
-.word 0
+.word 80
 
  # [...]
 ```
@@ -301,6 +301,13 @@ renderImage:
 	
 	ret
 ```
+
+<center>
+<figure>
+<img src="../resultado.png">
+<figcaption><font size = 2 color = "gray">O resultado do código no Bitmap Display</font></figcaption>
+</figure>
+</center>
 
 <a href="../index.html">Voltar ao índice</a>
 </div>
